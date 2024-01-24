@@ -16,20 +16,21 @@ dependencies {
 
 // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
-
-
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
-task customFetJar(type: Jar) {
+// 1 step create fatJar
+task customFatJar(type: Jar) {
     manifest {
         attributes 'Main-Class': 'org.example.Main'
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from { configurations.runtimeClasspath.collect {it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 
     doLast {
-        System.out.println("Jar is complited!")
+        System.out.println("Jar is complited!");
     }
 }
 
